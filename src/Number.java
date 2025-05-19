@@ -1,4 +1,3 @@
-// Number.java
 public class Number extends Expression {
     private final double value;
 
@@ -20,4 +19,3 @@ public class Number extends Expression {
         return tr.transformNumber(this);
     }
 }
-

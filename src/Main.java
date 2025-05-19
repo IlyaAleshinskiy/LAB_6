@@ -4,6 +4,7 @@ public class Main {
 
         Visitor session = new Session();
         Visitor vacation = new Vacation();
+        Visitor attestation = new Attestation();
 
         System.out.println("Во время сессии:");
         for (Person person : people) {
@@ -13,6 +14,11 @@ public class Main {
         System.out.println("\nВо время каникул:");
         for (Person person : people) {
             person.accept(vacation);
+        }
+
+        System.out.println("\nВо время аттестации:");
+        for (Person person : people) {
+            person.accept(attestation);
         }
     }
 }

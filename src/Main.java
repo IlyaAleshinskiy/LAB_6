@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        Person[] people = {new Student(), new Professor()};
+        Person[] people = {new Student(), new Professor(), new Aspirant()};
 
         Visitor session = new Session();
         Visitor vacation = new Vacation();
@@ -22,3 +22,4 @@ public class Main {
         }
     }
 }
+

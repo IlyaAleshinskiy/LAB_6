@@ -9,6 +9,8 @@ public class Number extends Expression {
         return value;
     }
 
+    public void dispose() {}
+
     @Override
     public double evaluate() {
         return value;

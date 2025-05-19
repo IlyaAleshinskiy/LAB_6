@@ -22,3 +22,4 @@ public class CopySyntaxTree implements Transformer {
         return new Variable(var.getName());
     }
 }
+

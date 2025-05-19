@@ -11,18 +11,36 @@ public class Main {
 
         FunctionCall callAbs = new FunctionCall("abs", mult);
 
-        CopySyntaxTree CST = new CopySyntaxTree();
-        Expression newExpr = callAbs.transform(CST);
+        FoldConstants FC = new FoldConstants();
+        Expression newExpr = callAbs.transform(FC);
 
-        // Проверка, что это действительно копия (а не те же объекты)
-        System.out.println("Original and copy are different objects: " + (callAbs != newExpr));
+        // Выводим результаты
+        System.out.println("Original expression:");
+        printExpression(callAbs, 0);
 
-        // Проверка структуры копии
-        FunctionCall copiedCallAbs = (FunctionCall) newExpr;
-        BinaryOperation copiedMult = (BinaryOperation) copiedCallAbs.getArgument();
+        System.out.println("\nAfter constant folding:");
+        printExpression(newExpr, 0);
+    }
 
-        System.out.println("Structure is preserved:");
-        System.out.println("Top function: " + copiedCallAbs.getName());
-        System.out.println("Operation: " + copiedMult.getOperation());
+    private static void printExpression(Expression expr, int indent) {
+        for (int i = 0; i < indent; i++) System.out.print("  ");
+
+        if (expr instanceof Number) {
+            System.out.println("Number: " + ((Number)expr).getValue());
+        }
+        else if (expr instanceof BinaryOperation) {
+            BinaryOperation binop = (BinaryOperation)expr;
+            System.out.println("BinaryOp: " + binop.getOperation());
+            printExpression(binop.getLeft(), indent + 1);
+            printExpression(binop.getRight(), indent + 1);
+        }
+        else if (expr instanceof FunctionCall) {
+            FunctionCall fcall = (FunctionCall)expr;
+            System.out.println("FunctionCall: " + fcall.getName());
+            printExpression(fcall.getArgument(), indent + 1);
+        }
+        else if (expr instanceof Variable) {
+            System.out.println("Variable: " + ((Variable)expr).getName());
+        }
     }
 }
